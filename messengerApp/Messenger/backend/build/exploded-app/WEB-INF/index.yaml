@@ -1,0 +1,7 @@
+indexes:
+- kind: Messages
+  ancestor: yes
+  properties:
+  - name: seen
+  - name: sender
+    direction: desc

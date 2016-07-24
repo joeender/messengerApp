@@ -1,0 +1,403 @@
+{
+ "kind": "discovery#restDescription",
+ "etag": "\"zRMgE0l9nVDW4S28VYYcYQF9UW4/X5IKAJraYDDlocKdKLpCcpT5tao\"",
+ "discoveryVersion": "v1",
+ "id": "myApi:v1",
+ "name": "myApi",
+ "version": "v1",
+ "description": "This is an API",
+ "ownerDomain": "backend.messenger.Jialiang.com",
+ "ownerName": "backend.messenger.Jialiang.com",
+ "icons": {
+  "x16": "http://www.google.com/images/icons/product/search-16.gif",
+  "x32": "http://www.google.com/images/icons/product/search-32.gif"
+ },
+ "protocol": "rest",
+ "baseUrl": "https://myApplicationId.appspot.com/_ah/api/myApi/v1/",
+ "basePath": "/_ah/api/myApi/v1/",
+ "rootUrl": "https://myApplicationId.appspot.com/_ah/api/",
+ "servicePath": "myApi/v1/",
+ "batchPath": "batch",
+ "parameters": {
+  "alt": {
+   "type": "string",
+   "description": "Data format for the response.",
+   "default": "json",
+   "enum": [
+    "json"
+   ],
+   "enumDescriptions": [
+    "Responses with Content-Type of application/json"
+   ],
+   "location": "query"
+  },
+  "fields": {
+   "type": "string",
+   "description": "Selector specifying which fields to include in a partial response.",
+   "location": "query"
+  },
+  "key": {
+   "type": "string",
+   "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.",
+   "location": "query"
+  },
+  "oauth_token": {
+   "type": "string",
+   "description": "OAuth 2.0 token for the current user.",
+   "location": "query"
+  },
+  "prettyPrint": {
+   "type": "boolean",
+   "description": "Returns response with indentations and line breaks.",
+   "default": "true",
+   "location": "query"
+  },
+  "quotaUser": {
+   "type": "string",
+   "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided.",
+   "location": "query"
+  },
+  "userIp": {
+   "type": "string",
+   "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits.",
+   "location": "query"
+  }
+ },
+ "auth": {
+  "oauth2": {
+   "scopes": {
+    "https://www.googleapis.com/auth/userinfo.email": {
+     "description": "View your email address"
+    }
+   }
+  }
+ },
+ "schemas": {
+  "MyBean": {
+   "id": "MyBean",
+   "type": "object",
+   "properties": {
+    "data": {
+     "type": "string"
+    }
+   }
+  }
+ },
+ "methods": {
+  "checkmessages": {
+   "id": "myApi.checkmessages",
+   "path": "checkMessages/{username}",
+   "httpMethod": "POST",
+   "parameters": {
+    "username": {
+     "type": "string",
+     "required": true,
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "username"
+   ],
+   "response": {
+    "$ref": "MyBean"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "friendaccept": {
+   "id": "myApi.friendaccept",
+   "path": "friendAccept/{username}/{password}/{requester}/{answer}",
+   "httpMethod": "POST",
+   "parameters": {
+    "answer": {
+     "type": "string",
+     "required": true,
+     "location": "path"
+    },
+    "password": {
+     "type": "string",
+     "required": true,
+     "location": "path"
+    },
+    "requester": {
+     "type": "string",
+     "required": true,
+     "location": "path"
+    },
+    "username": {
+     "type": "string",
+     "required": true,
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "username",
+    "password",
+    "requester",
+    "answer"
+   ],
+   "response": {
+    "$ref": "MyBean"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "getfriendlist": {
+   "id": "myApi.getfriendlist",
+   "path": "getfriendlist",
+   "httpMethod": "GET",
+   "parameters": {
+    "password": {
+     "type": "string",
+     "required": true,
+     "location": "query"
+    },
+    "username": {
+     "type": "string",
+     "required": true,
+     "location": "query"
+    }
+   },
+   "parameterOrder": [
+    "password",
+    "username"
+   ],
+   "response": {
+    "$ref": "MyBean"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "getrequestlist": {
+   "id": "myApi.getrequestlist",
+   "path": "mybean/{username}/{password}",
+   "httpMethod": "GET",
+   "parameters": {
+    "password": {
+     "type": "string",
+     "required": true,
+     "location": "path"
+    },
+    "username": {
+     "type": "string",
+     "required": true,
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "username",
+    "password"
+   ],
+   "response": {
+    "$ref": "MyBean"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "register": {
+   "id": "myApi.register",
+   "path": "register/{username}/{password}/{email}",
+   "httpMethod": "POST",
+   "parameters": {
+    "email": {
+     "type": "string",
+     "required": true,
+     "location": "path"
+    },
+    "password": {
+     "type": "string",
+     "required": true,
+     "location": "path"
+    },
+    "username": {
+     "type": "string",
+     "required": true,
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "username",
+    "password",
+    "email"
+   ],
+   "response": {
+    "$ref": "MyBean"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "sayHi": {
+   "id": "myApi.sayHi",
+   "path": "sayHi/{name}",
+   "httpMethod": "POST",
+   "parameters": {
+    "name": {
+     "type": "string",
+     "required": true,
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "name"
+   ],
+   "response": {
+    "$ref": "MyBean"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "sendfriendrequest": {
+   "id": "myApi.sendfriendrequest",
+   "path": "sendFriendRequest/{username}/{password}/{friendinfo}",
+   "httpMethod": "POST",
+   "parameters": {
+    "friendinfo": {
+     "type": "string",
+     "required": true,
+     "location": "path"
+    },
+    "password": {
+     "type": "string",
+     "required": true,
+     "location": "path"
+    },
+    "username": {
+     "type": "string",
+     "required": true,
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "username",
+    "password",
+    "friendinfo"
+   ],
+   "response": {
+    "$ref": "MyBean"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "sendmessage": {
+   "id": "myApi.sendmessage",
+   "path": "sendMessage/{username}/{password}/{receiverkey}/{message}",
+   "httpMethod": "POST",
+   "parameters": {
+    "message": {
+     "type": "string",
+     "required": true,
+     "location": "path"
+    },
+    "password": {
+     "type": "string",
+     "required": true,
+     "location": "path"
+    },
+    "receiverkey": {
+     "type": "string",
+     "required": true,
+     "location": "path"
+    },
+    "username": {
+     "type": "string",
+     "required": true,
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "username",
+    "password",
+    "receiverkey",
+    "message"
+   ],
+   "response": {
+    "$ref": "MyBean"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "signin": {
+   "id": "myApi.signin",
+   "path": "signIn/{username}/{password}",
+   "httpMethod": "POST",
+   "parameters": {
+    "password": {
+     "type": "string",
+     "required": true,
+     "location": "path"
+    },
+    "username": {
+     "type": "string",
+     "required": true,
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "username",
+    "password"
+   ],
+   "response": {
+    "$ref": "MyBean"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "testing": {
+   "id": "myApi.testing",
+   "path": "testing/{name}",
+   "httpMethod": "POST",
+   "parameters": {
+    "name": {
+     "type": "string",
+     "required": true,
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "name"
+   ],
+   "response": {
+    "$ref": "MyBean"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "unreadcount": {
+   "id": "myApi.unreadcount",
+   "path": "unreadCount/{username}/{password}",
+   "httpMethod": "POST",
+   "parameters": {
+    "password": {
+     "type": "string",
+     "required": true,
+     "location": "path"
+    },
+    "username": {
+     "type": "string",
+     "required": true,
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "username",
+    "password"
+   ],
+   "response": {
+    "$ref": "MyBean"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  }
+ }
+}

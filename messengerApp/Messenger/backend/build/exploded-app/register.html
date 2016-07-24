@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>Sign Up!</title>
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" ></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/register.js" ></script>
+        <script src="https://apis.google.com/js/client.js?onload=init"></script>
+    </head>
+    <body role="document" style="padding-top: 70px;">
+
+
+    <div class="container theme-showcase" role="main">
+        <div class="alert alert-success" style="visibility: collapse;" id="outputAlert"></div>
+
+        <!--
+          A form that takes a text value and submits it to the Endpoint,
+          access to the Endpoint is enabled once the client is loaded below.
+        -->
+        <div class="jumbotron">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Sign Up!</h1>
+                    <form>
+                        <div class="input-group">
+                            <input type="text" class="form-control input-lg" placeholder="User Name" id="userNameInput" />
+                            <input type="text" class="form-control input-lg" placeholder="Email@email.com" id="emailInput" />
+                            <input type="text" class="form-control input-lg" placeholder="password" id="passwordInput" />
+                            <input type="text" class="form-control input-lg" placeholder="repeat password" id="repeatPasswordInput" />
+                          <span class="input-group-btn">
+                             <button class="btn btn-default btn-primary btn-group btn-lg" type="submit" id="confirmSignUp">Confirm &raquo;</button>
+                          </span>
+                        </div>
+                    </form>
+                    <br/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--
+     Load the Google APIs Client Library for JavaScript
+     More info here : https://developers.google.com/api-client-library/javascript/reference/referencedocs
+    -->
+
+    </body>
+</html>
