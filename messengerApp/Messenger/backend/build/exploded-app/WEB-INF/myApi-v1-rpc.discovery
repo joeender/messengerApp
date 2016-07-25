@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"zRMgE0l9nVDW4S28VYYcYQF9UW4/X5IKAJraYDDlocKdKLpCcpT5tao\"",
+ "etag": "\"zRMgE0l9nVDW4S28VYYcYQF9UW4/uwlrR76udzV87o9oLxep0MZybyQ\"",
  "discoveryVersion": "v1",
  "id": "myApi:v1",
  "name": "myApi",
@@ -149,6 +149,35 @@
    "parameterOrder": [
     "password",
     "username"
+   ],
+   "returns": {
+    "$ref": "MyBean"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "myApi.getmessages": {
+   "id": "myApi.getmessages",
+   "allowGet": true,
+   "parameters": {
+    "friend": {
+     "type": "string",
+     "required": true
+    },
+    "password": {
+     "type": "string",
+     "required": true
+    },
+    "username": {
+     "type": "string",
+     "required": true
+    }
+   },
+   "parameterOrder": [
+    "username",
+    "password",
+    "friend"
    ],
    "returns": {
     "$ref": "MyBean"

@@ -96,12 +96,10 @@ public class MyEndpoint {
         user.loadBasicUserInfo(username, password);
         FriendRequest request = new FriendRequest(user,friendinfo);
 
-        if(request.sendRequest())
-        {
+        if(request.sendRequest()) {
             response.setData("true");
         }
-        else
-        {
+        else {
             response.setData("false");
         }
         return response;
@@ -127,12 +125,10 @@ public class MyEndpoint {
     public MyBean friendAccept(@Named("username") String username, @Named("password")String password,@Named("requester")String requester, @Named("answer")String answer) throws ServiceException, EntityNotFoundException {
         MyBean response = new MyBean();
         FriendAccept friendAccept = new FriendAccept(username, password, requester);
-        if(friendAccept.resolveRequest(answer))
-        {
+        if(friendAccept.resolveRequest(answer)) {
             response.setData("true");
         }
-        else
-        {
+        else {
             response.setData("false");
         }
         return response;
@@ -152,6 +148,14 @@ public class MyEndpoint {
         MyBean response = new MyBean();
         GetMessages counts = new GetMessages(username, password);
         response.setData(counts.getUnreadJSONList());
+        return response;
+    }
+
+    @ApiMethod(name = "getmessages")
+    public MyBean getMessages(@Named("username") String username, @Named("password")String password, @Named("friend") String friend) throws ServiceException, EntityNotFoundException {
+        MyBean response = new MyBean();
+        GetMessages messages = new GetMessages(username, password);
+        response.setData(messages.getMessagesFromAFriendJSON(friend));
         return response;
     }
 }

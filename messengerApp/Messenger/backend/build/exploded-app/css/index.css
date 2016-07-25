@@ -1,5 +1,8 @@
 body {
   padding-top: 51px;
+  background-color: #1287A8;
+  color: white;
+
 }
 .text-center {
   padding-top: 20px;
@@ -61,7 +64,35 @@ body {
 
 .friendSelect
 {
-    border-style: inset;
-    border-color: red;
+    cursor: pointer;
+}
 
+.yourText
+{
+    font-size: 300%;
+    border-radius: 5px;
+    padding: 3px;
+    float: right;
+    background-color: #5cd65c;
+    color:white;
+    max-width:48%;
+    clear:both;
+}
+
+.theirText
+{
+    font-size: 300%;
+    border-radius: 5px;
+    padding: 3px;
+    float: left;
+    background-color: #4da6ff;
+    color: white;
+    max-width:48%;
+    clear:both;
+}
+
+.currentPanel
+{
+    background-color:white;
+    height:100%;
 }

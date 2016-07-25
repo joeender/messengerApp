@@ -115,8 +115,6 @@ function getFriendRequests() {
                     {
                         window.friendNameKeyArray.push(friend);
                         makeFriendsMenu(friend);
-                        console.log("Name: "+ friend.name);
-                        console.log("Key: " + friend.name);
                     }
                 }
 
@@ -130,6 +128,7 @@ function getFriendRequests() {
                     console.log("Current friend selected: " + window.currentFriend.name);
                     window.initialize = false;
                     showMessagePanel();
+                    printCurrentMessages();
                 }
             }
         );
@@ -152,6 +151,33 @@ function getUnreadCount() {
                       console.log("Name:" + obj.names[i] + " Count: " + obj.counts[i]);
                       addCountToName(obj.names[i], obj.counts[i]);
                   }
+             }
+         }
+     );
+    }
+    return false;
+}
+
+function printCurrentMessages()
+{
+    if(window.loggedIn){
+     gapi.client.myApi.getmessages({'username': window.username, 'password': window.password, 'friend': window.currentFriend.name}).execute(
+         function(response)
+         {
+             console.log("Messages from " + window.currentFriend.name + ":");
+             if(((response.result.data).localeCompare("none")) !== 0)
+             {
+                  var obj = JSON.parse(response.result.data);
+                  var messagesListLength = Object.keys(obj.messages).length;
+                  for(var i = 0; i < messagesListLength; i++)
+                  {
+                      console.log(obj.messages[i]);
+                      $(".currentPanel").prepend('<p class="theirText">' + obj.messages[i] + '</p>');
+                  }
+             }
+             else
+             {
+                console.log("No messages.")
              }
          }
      );
@@ -195,12 +221,36 @@ function getUnreadCount() {
          gapi.client.myApi.sendmessage({'username': window.username, 'password': window.password, 'receiverkey':window.currentFriend.key, 'message':message}).execute(
              function(response)
              {
-                $(".currentPanel").append("<p>" + message + "</p>");
-                document.getElementById('sendMessage').disabled = false;
+                        var p = document.createElement("p");
+                        $(".currentPanel").prepend(p);
+                        p.className = "yourText";
+                        p.innerHTML = message;
+                        document.getElementById('sendMessage').disabled = false;
              }
          );
          return false;
      }
+
+      document.onkeydown = function(e) {
+          if(e.keyCode == 13)
+          {
+                this.disabled = true;
+                var message = document.getElementById('sendText').value;
+                document.getElementById('sendText').value = "";
+                gapi.client.myApi.sendmessage({'username': window.username, 'password': window.password, 'receiverkey':window.currentFriend.key, 'message':message}).execute(
+                    function(response)
+                    {
+                        var p = document.createElement("p");
+                        $(".currentPanel").prepend(p);
+                        p.className = "yourText";
+                        p.innerHTML = message;
+                        document.getElementById('sendMessage').disabled = false;
+                    }
+                );
+                return false;
+          }
+
+      }
  }
 
 
@@ -208,6 +258,7 @@ function enableCheckMessagesPing()
 {
     if(window.loggedIn)
     {
+        setInterval(printCurrentMessages, 5000);
         setInterval(refreshLists, 15000);
     }
 }
@@ -277,8 +328,6 @@ function makeFriendsMenu(friendsFrom)
     li.appendChild(div);
     div.innerHTML = name;
     div.setAttribute('id', name + "Select");
-    console.log("Friend Select id:" + div.id);
-
     div.style.height = "50px";
     div.style.width = "100%";
     div.className = "friendSelect";
@@ -286,7 +335,9 @@ function makeFriendsMenu(friendsFrom)
     div.addEventListener("click", function() {
          console.log(friendsFrom.name + " selected!")
          window.currentFriend = friendsFrom;
+         div.innerHTML = name;
          showMessagePanel();
+         printCurrentMessages();
     });
 }
 
@@ -355,7 +406,6 @@ function addCountToName(name, count)
     {
         if(((array[i].name).localeCompare(name)) == 0)
         {
-            console.log(name + " already in array.");
             return false;
         }
     }

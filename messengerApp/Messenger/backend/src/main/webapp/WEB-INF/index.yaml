@@ -5,3 +5,10 @@ indexes:
   - name: seen
   - name: sender
     direction: desc
+
+- kind: Messages
+  properties:
+  - name: sender
+  - name: date
+
+

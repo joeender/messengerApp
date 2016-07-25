@@ -58,7 +58,7 @@
 
             <!-- main area -->
             <div class="col-xs-12 col-sm-9">
-                <div class = "row" id = "messagePanel">
+                <div class = "row" id = "messagePanel" style = "height:100%;background-color:white;">
                     <div class = "currentPanel" id = "none"></div>
                 </div>
                 <div class="navbar navbar-fixed-bottom">
@@ -79,30 +79,23 @@
 
 
 <div class="container theme-showcase"id = "signIn">
-    <!--
-      Output from Endpoints API call.
-    -->
-    <!--<div class="alert alert-success" style="visibility: collapse;" id="outputAlert"></div>-->
-
-    <!--
-      A form that takes a text value and submits it to the Endpoint,
-      access to the Endpoint is enabled once the client is loaded below.
-    -->
-    <div class="jumbotron">
+    <div class="text-center pagination-centered">
         <div class="row">
-            <div class="col-lg-12">
-                <h1>Sign In!</h1>
+            <div class="center-block col-lg-3" style="float: none;max-width:600px;">
+                <h1>MY MESSENGER</h1>
+                <h3>SIGN IN</h3>
                 <form>
-                    <div class="input-group">
+                    <div class="form-group">
                         <input type="text" class="form-control input-lg" placeholder="User Name" id="nameLogin" />
                         <input type="text" class="form-control input-lg" placeholder="Password" id="passwordLogin" />
                     </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary-outline btn-lg" type="submit" id="loginButton" style = "width:100%;background-color: white; color:#1287A8;">OK</button>
+                        <br>
+                        <br>
+                        <button class="btn btn-primary-outline btn-lg" id="registerButton" style = "width:100%;background-color:white;color:#1287A8;">SIGN UP</button>
+                    </div>
                 </form>
-                <span class="input-group-btn">
-                    <button class="btn btn-default btn-primary btn-group btn-lg" type="submit" id="loginButton">Log In&raquo;</button>
-                </span>
-                <button class="btn btn-default btn-primary btn-lg" id="registerButton">Sign UP! &raquo;</button>
-                <br/>
             </div>
         </div>
     </div>

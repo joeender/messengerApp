@@ -77,5 +77,42 @@ public class GetMessages {
         log.info("JSON for unread messages notification: " + obj.toString());
         return obj.toString();
     }
+
+    public String getMessagesFromAFriendJSON(String friend)
+    {
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        Query messagesQuery = new Query("Messages").setAncestor(user.getUserEntity().getKey());
+        Query.Filter seenFilter = new Query.FilterPredicate("seen", Query.FilterOperator.EQUAL, "no");
+        Query.Filter friendFilter = new Query.FilterPredicate("sender", Query.FilterOperator.EQUAL, friend);
+        Query.CompositeFilter seenFriendFilter = Query.CompositeFilterOperator.and(seenFilter, friendFilter);
+        messagesQuery.setFilter(seenFriendFilter);
+        messagesQuery.addSort("date", Query.SortDirection.ASCENDING);
+        List<Entity> messagesResults = datastore.prepare(messagesQuery).asList(FetchOptions.Builder.withDefaults());
+
+        JSONArray messages = new JSONArray();
+        JSONObject obj = new JSONObject();
+        Entity temp;
+
+        log.info("Messages from: " + friend);
+        if(messagesResults.size() == 0)
+        {
+            log.info("No messages.");
+            return "none";
+        }
+        else
+        {
+            for(int i = 0; i < messagesResults.size(); i++)
+            {
+                temp = messagesResults.get(i);
+                messages.add(temp.getProperty("message"));
+                temp.setProperty("seen", "yes");
+                datastore.put(temp);
+                log.info((String)(temp.getProperty("message")));
+
+            }
+            obj.put("messages", messages);
+            return obj.toString();
+        }
+    }
 }
 
