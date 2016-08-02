@@ -40,7 +40,7 @@ public class GetUserData {
 
         log.info("Friends list JSON: " + obj.toString());
 
-        return obj.toString();
+        return obj.toJSONString();
     }
 
     public String getRequestListJsonString() throws EntityNotFoundException {
@@ -56,6 +56,6 @@ public class GetUserData {
         obj.put("requests", list);
         log.info("Friend requests JSON: " + obj.toString());
 
-        return obj.toString();
+        return obj.toJSONString();
     }
 }

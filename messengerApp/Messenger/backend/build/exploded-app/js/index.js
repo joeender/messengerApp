@@ -9,8 +9,9 @@ initialize = true;
 
 function enableRegisterClick()
 {
-    document.getElementById('registerButton').onclick = function() {
-        document.location = "register.html";
+    document.getElementById('registerButton').onclick = function(event) {
+        event.preventDefault()
+        window.location = "register.html";
     }
 }
 
@@ -18,6 +19,7 @@ function enableSignInClick() {
     document.getElementById('loginButton').onclick = function() {
         this.disabled = true;
         window.username = document.getElementById('nameLogin').value;
+        window.username = window.username.toLowerCase();
         window.password = document.getElementById('passwordLogin').value;
         gapi.client.myApi.signin({'username': window.username, 'password': window.password}).execute(
             function(response)
@@ -25,8 +27,9 @@ function enableSignInClick() {
                 if(((response.result.data).localeCompare("true")) == 0)
                 {
                     window.loggedIn = true;
+                    $('body').css('background-color','white');
                     document.getElementById('signIn').style.display  = "none";
-                    document.getElementById('messagesMain').style.display = 'block';
+                    document.getElementById('wrapper').style.display = 'block';
                     enableFriendRequestClick();
                     refreshLists();
                     enableSendMessage();
@@ -35,7 +38,8 @@ function enableSignInClick() {
                 else
                 {
                     document.getElementById('loginButton').disabled = false;
-                    alert("Not signedIN");
+                    document.getElementById('nameLogin').className += " errorBox";
+                    document.getElementById('passwordLogin').className += " errorBox";
                 }
             }
         );
@@ -48,6 +52,7 @@ function enableFriendRequestClick() {
         if(window.loggedIn)
         {
             var friendInfo = document.getElementById('friendInfo').value;
+            friendInfo = friendInfo.toLowerCase();
 
             gapi.client.myApi.sendfriendrequest({'username': window.username, 'password': window.password, 'friendinfo': friendInfo}).execute(
                 function(response)
@@ -116,6 +121,17 @@ function getFriendRequests() {
                         window.friendNameKeyArray.push(friend);
                         makeFriendsMenu(friend);
                     }
+
+                    if(window.friendNameKeyArray.length === 1)
+                    {
+                        window.currentFriend = window.friendNameKeyArray[0];
+                        console.log("Current friend selected: " + window.currentFriend.name);
+                        showMessagePanel();
+                        printCurrentMessages();
+                        document.getElementById(window.currentFriend.name + "Select").style.backgroundColor = "white";
+                        document.getElementById(window.currentFriend.name + "Select").style.color = "black";
+                        document.getElementById("toFriend").innerHTML= "To: " + window.currentFriend.name;
+                    }
                 }
 
                 ////
@@ -124,11 +140,21 @@ function getFriendRequests() {
 
                 if(window.initialize)
                 {
-                    window.currentFriend = window.friendNameKeyArray[0];
-                    console.log("Current friend selected: " + window.currentFriend.name);
+                    if(window.friendNameKeyArray.length > 0)
+                    {
+                        window.currentFriend = window.friendNameKeyArray[0];
+                        console.log("Current friend selected: " + window.currentFriend.name);
+                        showMessagePanel();
+                        printCurrentMessages();
+                        document.getElementById(window.currentFriend.name + "Select").style.backgroundColor = "white";
+                        document.getElementById(window.currentFriend.name + "Select").style.color = "black";
+                        document.getElementById("toFriend").innerHTML= "To: " + window.currentFriend.name;
+                    }
+                    else
+                    {
+                        console.log("No friends");
+                    }
                     window.initialize = false;
-                    showMessagePanel();
-                    printCurrentMessages();
                 }
             }
         );
@@ -164,21 +190,24 @@ function printCurrentMessages()
      gapi.client.myApi.getmessages({'username': window.username, 'password': window.password, 'friend': window.currentFriend.name}).execute(
          function(response)
          {
-             console.log("Messages from " + window.currentFriend.name + ":");
-             if(((response.result.data).localeCompare("none")) !== 0)
-             {
-                  var obj = JSON.parse(response.result.data);
-                  var messagesListLength = Object.keys(obj.messages).length;
-                  for(var i = 0; i < messagesListLength; i++)
-                  {
-                      console.log(obj.messages[i]);
-                      $(".currentPanel").prepend('<p class="theirText">' + obj.messages[i] + '</p>');
-                  }
-             }
-             else
-             {
-                console.log("No messages.")
-             }
+            if(currentFriend !== null)
+            {
+                 console.log("Messages from " + window.currentFriend.name + ":");
+                 if(((response.result.data).localeCompare("none")) !== 0)
+                 {
+                      var obj = JSON.parse(response.result.data);
+                      var messagesListLength = Object.keys(obj.messages).length;
+                      for(var i = 0; i < messagesListLength; i++)
+                      {
+                          console.log(obj.messages[i]);
+                          $(".currentPanel").prepend('<p class="theirText">' + obj.messages[i] + '</p>');
+                      }
+                 }
+                 else
+                 {
+                    console.log("No messages.")
+                 }
+            }
          }
      );
     }
@@ -295,9 +324,11 @@ function makeRequestMenu(requestFrom)
     var parent = document.getElementById('friendRequestSideBar');
     var li = document.createElement('li');
     var div = document.createElement('div');
-    parent.appendChild(li);
+    $(parent).prepend(li);
     li.appendChild(div);
-    div.innerHTML = requestFrom + " wants to be friends";
+    div.innerHTML = requestFrom + " wants to be friends<br>";
+    div.className = "friendPrompt";
+
 
     var btnYes = document.createElement("BUTTON");
     btnYes.innerHTML = "YES";
@@ -306,6 +337,9 @@ function makeRequestMenu(requestFrom)
 
     div.appendChild(btnYes);
     div.appendChild(btnNo);
+
+    btnYes.className = "btn btn-primary btn-sm friendYes";
+    btnNo.className = "btn btn-primary btn-sm friendNo";
 
     btnYes.addEventListener ("click", function() {
         parent.removeChild(li);
@@ -328,16 +362,22 @@ function makeFriendsMenu(friendsFrom)
     li.appendChild(div);
     div.innerHTML = name;
     div.setAttribute('id', name + "Select");
-    div.style.height = "50px";
-    div.style.width = "100%";
     div.className = "friendSelect";
 
+
     div.addEventListener("click", function() {
+         $(".friendSelect").each(function( index ) {
+             this.style.backgroundColor = "#00D9C7";
+             this.style.color = "white";
+         });
+         this.style.backgroundColor = "white";
+         this.style.color = "black";
          console.log(friendsFrom.name + " selected!")
          window.currentFriend = friendsFrom;
          div.innerHTML = name;
          showMessagePanel();
          printCurrentMessages();
+         document.getElementById("toFriend").innerHTML= "To: " + window.currentFriend.name;
     });
 }
 

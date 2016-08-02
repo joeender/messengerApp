@@ -53,8 +53,9 @@ public class User {
 
     /// Used to load some info and friends list from data store with kind Member entity key.
     public Boolean loadBasicUserInfo(String nameInput, String passwordInput) throws EntityNotFoundException {
-        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        nameInput = nameInput.toLowerCase();
 
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         Query.Filter nameFilter = new Query.FilterPredicate("username", Query.FilterOperator.EQUAL, nameInput);
         Query.Filter passwordFilter = new Query.FilterPredicate("password", Query.FilterOperator.EQUAL, passwordInput);
         Query.CompositeFilter namePasswordFilter = Query.CompositeFilterOperator.and(nameFilter, passwordFilter);

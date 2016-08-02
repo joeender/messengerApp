@@ -1,113 +1,123 @@
 <!DOCTYPE html>
+<html lang="en">
 
-<html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Messenger APP</title>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/index.css">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" ></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/index.js" ></script>
+	<script type="text/javascript" src="js/index.js" ></script>
     <script src="https://apis.google.com/js/client.js?onload=init"></script>
 
+    <title>Simple Messenger by Jay Zhong</title>
+
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 
 </head>
-<body>
-<!--Messenger-->
-<!--Text Panel and Send Message-->
-<div class="page-container" id = "messagesMain" style="display:none">
 
-    <!-- top navbar -->
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target=".sidebar-nav">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">Project Name</a>
+<body>
+
+    <div id="wrapper" style = "display:none;">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav" id = "friendRequestSideBar">
+                <li>
+					<div style = "height:75px;" id = "friendRequest">
+                        <form class = "form-inline">
+                            <input style = "width:50%;" type="text" class="form-control input" placeholder="Friend name or Email" id="friendInfo" />
+                            <button style = "width:30%;" class="btn btn-default" type="submit" id="sendRequest">Send</button>
+                        </form>
+					</div>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Messenger Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Show Friends</a>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class = "row" id = "messagePanel" style = "height:100%;background-color:white;">
+                            <div class = "currentPanel" id = "none"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="container">
-        <div class="row row-offcanvas row-offcanvas-left">
-            <!-- sidebar -->
-            <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
-                <ul class="nav" id = "friendRequestSideBar" style = "min-width: 150px; overflow-y:scroll; max-height:100%;">
-                    <li>
-                        <div id = "friendRequest">
-                            <span>
-                                <form>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control input" placeholder="Friend name or Email" id="friendInfo" />
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-default" type="submit" id="sendRequest">Send&raquo;</button>
-                                        </span>
-                                    </div>
-                                </form>
-                            </span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- main area -->
-            <div class="col-xs-12 col-sm-9">
-                <div class = "row" id = "messagePanel" style = "height:100%;background-color:white;">
-                    <div class = "currentPanel" id = "none"></div>
-                </div>
-                <div class="navbar navbar-fixed-bottom">
-                    <form id = "sendTextBar">
-                        <div class="input-group" >
-                            <input type="text" class="form-control input" placeholder="Type..." id="sendText" />
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="submit" id="sendMessage">Send&raquo;</button>
-                            </span>
-                        </div>
-                    </form>
-                </div>
-            </div><!-- /.col-xs-12 main -->
-        </div><!--/.row-->
-    </div><!--/.container-->
-</div><!--/.page-container-->
-<!--END Text Panel and Send Message-->
-
-
-<div class="container theme-showcase"id = "signIn">
-    <div class="text-center pagination-centered">
-        <div class="row">
-            <div class="center-block col-lg-3" style="float: none;max-width:600px;">
-                <h1>MY MESSENGER</h1>
-                <h3>SIGN IN</h3>
-                <form>
-                    <div class="form-group">
-                        <input type="text" class="form-control input-lg" placeholder="User Name" id="nameLogin" />
-                        <input type="text" class="form-control input-lg" placeholder="Password" id="passwordLogin" />
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-primary-outline btn-lg" type="submit" id="loginButton" style = "width:100%;background-color: white; color:#1287A8;">OK</button>
-                        <br>
-                        <br>
-                        <button class="btn btn-primary-outline btn-lg" id="registerButton" style = "width:100%;background-color:white;color:#1287A8;">SIGN UP</button>
+        <footer class="navbar-default navbar-fixed-bottom">
+            <div class="container-fluid">
+                <div id = "toFriend" style = "right:0px; font-size:175%;"></div>
+                <form id = "sendTextBar">
+                    <div class="input-group" style = "color: black;">
+                        <input type="text" class="form-control input-lg" placeholder="Type..." id="sendText" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default btn-lg" type="submit" id="sendMessage">Send&raquo;</button>
+                        </span>
                     </div>
                 </form>
             </div>
+        </footer>
+        <!-- /#messenger-content-wrapper -->
+
+    </div>
+
+    <!-- /#wrapper -->
+    <div class="container theme-showcase"id = "signIn" style = "background-color: #1287A8;">
+        <div class="pagination-centered">
+            <div class="row">
+                <div class="center-block col-lg-3" style="float: none;max-width:600px;">
+                    <h1 style = "color:white;">SIMPLE MESSENGER</h1>
+                    <br>
+                    <h3 style = "color:white;">by JAY ZHONG</h3>
+                    <h4 style = "color:white;">jialzhong@gmail.com</h4>
+                    <br>
+                    <h3 style = "color:white;">SIGN IN</h3>
+                    <div id = "tester">
+                        <p style = "color:white;">Try user name: <kbd>guest1</kbd> or <kbd>guest2</kbd> passwords: <kbd>123</kbd><br>
+                    </div>
+                    <form>
+                        <div class="form-group">
+                            <input type="text" class="form-control input-lg" placeholder="User Name" id="nameLogin" />
+                            <input type="password" class="form-control input-lg" placeholder="Password" id="passwordLogin" />
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary-outline btn-lg" type="submit" id="loginButton" style = "width:100%; color:#1287A8; background-color:white;">OK</button>
+                            <br>
+                            <br>
+                            <button class="btn btn-primary-outline btn-lg" id="registerButton" style = "width:100%;color:#1287A8; background-color:white;">SIGN UP</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 
 
-
-<!--
- Load the Google APIs Client Library for JavaScript
- More info here : https://developers.google.com/api-client-library/javascript/reference/referencedocs
--->
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
 
 </body>
-</html>
 
+</html>
