@@ -200,7 +200,8 @@ function printCurrentMessages()
                       for(var i = 0; i < messagesListLength; i++)
                       {
                           console.log(obj.messages[i]);
-                          $(".currentPanel").prepend('<p class="theirText">' + obj.messages[i] + '</p>');
+                          $(".currentPanel").prepend('<p class="theirText">' + "<b class = 'theirWords'>" + obj.messages[i] + '</b></p>');
+                          $(".currentPanel").prepend('<p class="theirText">' + "<b class = 'theirName'>" + window.currentFriend.name + "</b> </p>");
                       }
                  }
                  else
@@ -253,8 +254,16 @@ function printCurrentMessages()
                         var p = document.createElement("p");
                         $(".currentPanel").prepend(p);
                         p.className = "yourText";
-                        p.innerHTML = message;
+                        p.innerHTML = "<b class = 'yourWords'>" + message + "</b>";
+
+                        var nameP = document.createElement("p");
+                        $(".currentPanel").prepend(nameP);
+                        nameP.className = "yourText";
+                        nameP.innerHTML = "<b class = 'yourName'>You</b>";
+
                         document.getElementById('sendMessage').disabled = false;
+
+
              }
          );
          return false;
@@ -272,7 +281,13 @@ function printCurrentMessages()
                         var p = document.createElement("p");
                         $(".currentPanel").prepend(p);
                         p.className = "yourText";
-                        p.innerHTML = message;
+                        p.innerHTML = "<b class = 'yourWords'>" + message + "</b>";
+
+                        var nameP = document.createElement("p");
+                        $(".currentPanel").prepend(nameP);
+                        nameP.className = "yourText";
+                        nameP.innerHTML = "<b class = 'yourName'>You</b>";
+
                         document.getElementById('sendMessage').disabled = false;
                     }
                 );
@@ -367,6 +382,7 @@ function makeFriendsMenu(friendsFrom)
 
     div.addEventListener("click", function() {
          $(".friendSelect").each(function( index ) {
+             /// Sets the unselected friend as teal-green.
              this.style.backgroundColor = "#00D9C7";
              this.style.color = "white";
          });

@@ -1,5 +1,5 @@
  body {
-    overflow-x: hidden;
+    overflow: hidden;
     background-color:#1287A8;
  }
 
@@ -158,25 +158,49 @@
 
 .yourText
 {
-    font-size: 150%;
-    border-radius: 5px;
-    padding: 3px;
     float: right;
+    max-width:90%;
+    clear:both;
+}
+
+.yourWords
+{
     background-color: #5cd65c;
     color:white;
-    max-width:90%;
+    font-size: 150%;
+    padding: 3px;
+    border-radius: 5px;
+}
+
+.yourName
+{
+    font-size: 125%;
+    background-color: white;
+    color:#00D9C7;
     clear:both;
 }
 
 .theirText
 {
-    font-size: 150%;
-    border-radius: 5px;
-    padding: 3px;
     float: left;
-    background-color: #4da6ff;
-    color: white;
     max-width:90%;
+    clear:both;
+}
+
+.theirWords
+{
+    background-color: #4da6ff;
+    color:white;
+    font-size: 150%;
+    padding: 3px;
+    border-radius: 5px;
+}
+
+.theirName
+{
+    font-size: 125%;
+    background-color: white;
+    color:#ff9980;
     clear:both;
 }
 
@@ -184,6 +208,9 @@
 {
     background-color:white;
     height:100%;
+    border-width: 7px;
+    border-radius: 15px;
+    overflow: scroll;
 }
 
 .errorBox
@@ -192,4 +219,37 @@
   border-style: solid;
   border-width: 3px;
   border-color:red;
+}
+
+#messagePanel
+{
+    border-radius: 15px;
+    border-width: 7px;
+    border-style: solid;
+    border-color: #00D9C7;
+    height:100vh;
+    background-color:white;
+    width:50%;
+    min-width:300px;
+    padding:15px;
+    border-bottom-width: 0px;
+}
+
+#backgroundImage
+{
+    background-image:url("/images/bird.png");
+    background-size: 50% auto;
+    background-repeat: no-repeat;
+    background-position:88% 25%;
+}
+
+#typeFooter
+{
+    min-width:500px;
+    width:70%;
+    left:30%;
+    border-radius: 5px;
+    border-width: 3px;
+    border-style: solid;
+    border-color: #00D9C7;
 }

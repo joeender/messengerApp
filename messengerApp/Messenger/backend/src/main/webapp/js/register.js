@@ -20,6 +20,7 @@
                 document.getElementById('passwordInput').className += " errorBox";
                 document.getElementById('repeatPasswordInput').className += " errorBox";
                 document.getElementById('confirmSignUp').disabled = false;
+                alert("Passwords don't match!");
                 return false;
             }
 
@@ -35,6 +36,7 @@
                         document.getElementById('userNameInput').className += " errorBox";
                         document.getElementById('emailInput').className += " errorBox";
                         document.getElementById('confirmSignUp').disabled = false;
+                        alert("Username or email already taken!");
                     }
                 }
             );
