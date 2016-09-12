@@ -213,6 +213,11 @@
     overflow: scroll;
 }
 
+.buttonStyle
+{
+    background-color:white;
+}
+
 .errorBox
 {
   background-color: #ffe6e6;
